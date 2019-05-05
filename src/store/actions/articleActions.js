@@ -1,12 +1,12 @@
 import axios from 'axios';
+import { authHeader } from '../../helpers/authHeader';
 
 const configUrls = {
   root: 'http://127.0.0.1:8000/api/articles/',
   resetlink: '',
 };
-const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.N-x5ClKgGPTS_svcnisa1twaJ-kUnMOg7oS51DcY2ZY';
 const config = {
-  headers: {'Authorization': "Bearer " + token}
+  headers: authHeader()
 };
 
 export const createArticle = (article) => {

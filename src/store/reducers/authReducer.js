@@ -9,6 +9,7 @@ const authReducer = (state = initState, action) => {
     case 'SIGNIN_USER':
       console.log('sign in successful', action.response);
       let auth = action.response.data.user;
+      localStorage.setItem('user', JSON.stringify(action.response.data.user));
       console.log(auth);
       return {
         ...state,

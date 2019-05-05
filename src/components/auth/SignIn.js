@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { signInUser } from '../../store/actions/authActions';
 import { Redirect } from 'react-router-dom';
+import {  authStatus } from '../../helpers/authStatus';
 
 class SignIn extends Component {
   state = {
@@ -19,8 +20,7 @@ class SignIn extends Component {
   }
 
   render() {
-    const { auth } = this.props.auth;
-    if (auth.token) return <Redirect to="/" />
+    if (authStatus() === true) return <Redirect to="/" />
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">

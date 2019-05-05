@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createArticle } from '../../store/actions/articleActions';
+import { Redirect } from 'react-router-dom';
+import {  authStatus } from '../../helpers/authStatus';
 
 class CreateArticle extends Component {
   state = {
@@ -17,11 +19,11 @@ class CreateArticle extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(this.state);
     this.props.createArticle(this.state);
   }
 
   render() {
+    if (authStatus() === false) return <Redirect to="/" />
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
@@ -37,7 +39,11 @@ class CreateArticle extends Component {
           <div className="input-field">
             <label htmlFor="body">Body</label>
             <textarea id="body" onChange={this.handleChange} className="materialize-textarea"/>
-          </div>          
+          </div>
+          <div className="input-field">
+            <label htmlFor="tags">Tags</label>
+            <input type="text" id="tags" onChange={this.handleChange}/>
+          </div>        
           <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">Create</button>
           </div>         
