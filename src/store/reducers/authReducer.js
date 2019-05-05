@@ -8,9 +8,8 @@ const authReducer = (state = initState, action) => {
   switch (action.type) {
     case 'SIGNIN_USER':
       console.log('sign in successful', action.response);
-      const auth=action.response.data.user;
+      let auth = action.response.data.user;
       console.log(auth);
-      // return action.response;
       return {
         ...state,
         authError: null,
@@ -18,7 +17,17 @@ const authReducer = (state = initState, action) => {
       }
     case 'SIGNIN_USER_ERROR':
       console.log('sign in error', action.error);
-      return state;            
+      return state;
+    case 'SIGNUP_USER':
+      console.log('sign up successful', action.response);
+      return {
+        ...state,
+        authError: null,
+        auth: action.response.data.user,
+      }
+    case 'SIGNUP_USER_ERROR':
+      console.log('sign up error', action.error);
+      return state;                  
     default:
       return state;    
   }

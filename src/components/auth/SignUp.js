@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { signUpUser } from '../../store/actions/authActions';
+import { Redirect } from 'react-router-dom';
 
 class SignUp extends Component {
   state = {
     email: '',
     password: '',
-    firstName: '',
-    lastName: ''
+    username: '',
   }
   handleChange = (e) => {
     this.setState({
@@ -14,10 +16,12 @@ class SignUp extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    this.props.signUpUser(this.state);
   }
 
   render() {
+    const { auth } = this.props.auth;
+    if (auth.email && auth.username) return <Redirect to="/signin" />
     return (
       <div className="container">
         <form onSubmit={this.handleSubmit} className="white">
@@ -27,17 +31,17 @@ class SignUp extends Component {
             <input type="email" id="email" onChange={this.handleChange}/>
           </div>
           <div className="input-field">
+            <label htmlFor="username">Username</label>
+            <input type="text" id="username" onChange={this.handleChange}/>
+          </div>
+          <div className="input-field">
             <label htmlFor="password">Password</label>
             <input type="password" id="password" onChange={this.handleChange}/>
           </div>
           <div className="input-field">
-            <label htmlFor="firstName">First Name</label>
-            <input type="text" id="firstName" onChange={this.handleChange}/>
-          </div>
-          <div className="input-field">
-            <label htmlFor="lastName">Last Name</label>
-            <input type="text" id="lastName" onChange={this.handleChange}/>
-          </div>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" onChange={this.handleChange}/>
+          </div>          
           <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">Sign Up</button>
           </div>         
@@ -47,4 +51,17 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+    // authError: state.auth.authError,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    signUpUser: (user) => dispatch(signUpUser(user))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

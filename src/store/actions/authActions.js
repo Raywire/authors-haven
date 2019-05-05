@@ -22,3 +22,21 @@ export const signInUser = (user) => {
       });
     }
   };
+
+  export const signUpUser = (user) => {
+    return (dispatch, getState) => {
+      // make async call to database
+      console.log(user)
+      axios.post('http://127.0.0.1:8000/api/users/',
+        { user },
+        )
+      .then(function (response) {
+        console.log(response.data);
+        dispatch({ type: 'SIGNUP_USER', response });
+      })
+      .catch(function (error) {
+        console.log(error);
+        dispatch({ type: 'SIGNUP_USER_ERROR', error });
+      });
+    }
+  };
