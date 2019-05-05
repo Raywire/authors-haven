@@ -11,7 +11,7 @@ class ArticleDetails extends Component {
   }  
 
   render(){
-    const { article } = this.props;
+    const { article, author } = this.props;
     return (
       <div className="container section project-details">
         <div className="card depth-0">
@@ -20,7 +20,7 @@ class ArticleDetails extends Component {
             <p>{article.body}</p>
           </div>
           <div className="card-action grey lighten-4 grey-text">
-            <div>Posted by Raywire</div>
+            <div>Posted by {author.username}</div>
             <div>{moment(article.date_created).fromNow()}</div>
           </div>
         </div>
@@ -32,14 +32,17 @@ class ArticleDetails extends Component {
 // Prevents Cannot read property “propertyname” of undefined
 ArticleDetails.propTypes = {
   article: PropTypes.shape({}),
+  author: PropTypes.shape({}),
 };
 ArticleDetails.defaultProps = {
   article: {},
+  author: {},
 };
 
 const mapStateToProps = (state) => {
   return {
-    article: state.articles.article
+    article: state.articles.article,
+    author: state.articles.author,
   }
 }
 

@@ -35,6 +35,7 @@ const articleReducer = (state = initState, action) => {
       return {
         ...state,
         article,
+        author: article.author,
       }
     case 'GET_ARTICLE_FAILED':
       console.log('get article failed');
