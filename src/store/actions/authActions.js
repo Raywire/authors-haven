@@ -13,7 +13,7 @@ export const signInUser = (user) => {
         { user },
         )
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
         dispatch({ type: 'SIGNIN_USER', response });
       })
       .catch(function (error) {

@@ -4,6 +4,7 @@ const initState = {
     // {id: '2', title: 'Collect all the stars', content: 'blah blah blah' },
     // {id: '3', title: 'Egg hunt with Yoshi', content: 'blah blah blah' },
   ],
+  article: {},
   loading: false,
   error: null,
 }
@@ -21,11 +22,6 @@ const articleReducer = (state = initState, action) => {
       return state;
     case 'GET_ARTICLES_SUCCESSFUL':
       console.log('get articles successful', action.payload);
-      // return {
-      //   ...state,
-      //   loading: false,
-      //   articles: action.payload
-      // };
       return action.payload;
     case 'GET_ARTICLES_FAILED':
       console.log('get articles failed');
@@ -35,7 +31,11 @@ const articleReducer = (state = initState, action) => {
       return state;
     case 'GET_ARTICLE_SUCCESSFUL':
       console.log('get article successful', action.payload);
-      return action.payload;
+      const article = action.payload.article;
+      return {
+        ...state,
+        article,
+      }
     case 'GET_ARTICLE_FAILED':
       console.log('get article failed');
       return state;       

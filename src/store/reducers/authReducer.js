@@ -10,7 +10,12 @@ const authReducer = (state = initState, action) => {
       console.log('sign in successful', action.response);
       const auth=action.response.data.user;
       console.log(auth);
-      return action.response;
+      // return action.response;
+      return {
+        ...state,
+        authError: null,
+        auth,
+      }
     case 'SIGNIN_USER_ERROR':
       console.log('sign in error', action.error);
       return state;            

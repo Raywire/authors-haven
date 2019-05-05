@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { getArticle } from '../../store/actions/articleActions';
+import moment from 'moment';
+import PropTypes from 'prop-types';
 
 class ArticleDetails extends Component {
-  // console.log(props);
-  // const slug = props.match.params.slug;
   componentDidMount(){
     const slug = this.props.match.params.slug;
     this.props.getArticle(slug);
   }  
-  // props.getArticle(slug);
+
   render(){
     const { article } = this.props;
-    console.log(article);
     return (
       <div className="container section project-details">
         <div className="card depth-0">
           <div className="card-content">
-            <div className="card-title">Article Title {}</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <div className="card-title">{article.title}</div>
+            <p>{article.body}</p>
           </div>
           <div className="card-action grey lighten-4 grey-text">
             <div>Posted by Raywire</div>
-            <div>2nd September, 2am</div>
+            <div>{moment(article.date_created).fromNow()}</div>
           </div>
         </div>
       </div>
@@ -30,15 +29,21 @@ class ArticleDetails extends Component {
   }
 }
 
+// Prevents Cannot read property “propertyname” of undefined
+ArticleDetails.propTypes = {
+  article: PropTypes.shape({}),
+};
+ArticleDetails.defaultProps = {
+  article: {},
+};
+
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
-    article: state.article.article
+    article: state.articles.article
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  // const slug = ownProps.match.params.slug;
   return {
     getArticle: (slug) => dispatch(getArticle(slug))
   }

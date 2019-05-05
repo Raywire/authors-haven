@@ -29,7 +29,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    articles: state.article.articles
+    articles: state.articles.articles
   }
 }
 
